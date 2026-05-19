@@ -5,8 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Account</title>
+	<meta charset="UTF-8">
+	<title>Account</title>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/common.css">
 </head>
 <body>
 <jsp:include page="/WEB-INF/components/navbar.jsp" />

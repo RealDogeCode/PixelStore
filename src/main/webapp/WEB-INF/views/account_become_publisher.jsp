@@ -5,6 +5,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Account</title>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/common.css">
 </head>
 	<body>
 		<jsp:include page="/WEB-INF/components/navbar.jsp" />
@@ -14,7 +15,7 @@
 				
 				<div class="account-content">
 				<form method="POST" action=".">
-					<label for="name">Company Name:</label>
+					<label for="name">Name:</label>
 					<input type="text" id="name" placeholder="Publisher Name">
 					
 					<label for="email">Email:</label>

@@ -5,17 +5,18 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Account</title>
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/common.css">
 	</head>
 <body>
 	<jsp:include page="/WEB-INF/components/navbar.jsp" />
 	<div class="account-layout">
 	<jsp:include page="/WEB-INF/components/account_navbar.jsp" />
 		<div class="account-content">
-			<ul>
-				<li>Ordine 1<input type="button" value="Rimborsa"></li>
-				<li>Ordine 2<input type="button" value="Rimborsa"></li>
-				<li>Ordine 3<input type="button" value="Rimborsa"></li>
-				<li>Ordine 4<input type="button" value="Rimborsa"></li>
+			<ul class="list">
+				<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam dictum ut lorem eget consectetur. Sed eget lacus nisl. Nam eget ante elementum.<a class="btn" href=".">Rimborsa</a></li>
+				<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam dictum ut lorem eget consectetur. Sed eget lacus nisl. Nam eget ante elementum.<a class="btn" href=".">Rimborsa</a></li>
+				<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam dictum ut lorem eget consectetur. Sed eget lacus nisl. Nam eget ante elementum.<a class="btn" href=".">Rimborsa</a></li>
+				<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam dictum ut lorem eget consectetur. Sed eget lacus nisl. Nam eget ante elementum.<a class="btn" href=".">Rimborsa</a></li>
 			</ul>
 		</div>
 	</div>
