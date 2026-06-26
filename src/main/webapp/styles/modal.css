@@ -1,0 +1,27 @@
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-box {
+    padding: 20px 30px;
+    border-radius: 8px;
+    min-width: 280px;
+    text-align: center;
+    color: white;
+    font-weight: 500;
+}
+
+.modal-box.success {
+    background: #28a745;
+}
+
+.modal-box.error {
+    background: #dc3545;
+}
+

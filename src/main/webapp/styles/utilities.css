@@ -1,0 +1,24 @@
+.vflex {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 240px);
+    gap: 1rem;
+    justify-content: center;
+}
+
+.padded {
+	padding: 20px;
+	margin: auto;
+}

@@ -1,0 +1,30 @@
+.sidebar {
+    background-color: #2a2a4a;
+    width: 15%;
+    height: 100vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 100%;
+}
+
+.sidebar ul li a {
+    color: #eee;
+    text-decoration: none;
+    font-size: 0.95rem;
+    padding: 25px;
+    display: block;
+    width: 100%;
+    transition: 0.2s ease;
+}
+
+.sidebar ul li a:hover {
+    background-color: #3a3a66;
+    color: #fff;
+}

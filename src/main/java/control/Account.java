@@ -8,13 +8,19 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
+import services.PublisherService;
+import services.UserService;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import javax.sql.DataSource;
 
+import DAOs.PublisherDAO;
 import DAOs.UserDAO;
+import Models.Publisher;
 import Models.User;
 
 @WebServlet("/Account")
@@ -76,10 +82,63 @@ public class Account extends HttpServlet {
 
 		    case "orders":
 		        break;
-
 		    case "publisher":
+		    	handlePublisher(request, response);
 		        break;
 		}
+	}
+
+	private void handlePublisher(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    HttpSession session = request.getSession();
+	    User user = (User) session.getAttribute("user");
+
+	    if (user == null) {
+	        response.sendRedirect(request.getContextPath() + "/Login");
+	        return;
+	    }
+
+	    DataSource ds = (DataSource) request.getServletContext().getAttribute("ds");
+	    PublisherService pservice = new PublisherService(ds);
+
+	    try {
+	        String name = request.getParameter("name");
+	        String desc = request.getParameter("desc");
+
+	        Part logoPart = request.getPart("logo");
+
+	        String logoUrl = null;
+
+	        if (logoPart != null && logoPart.getSize() > 0) {
+	            String contentType = logoPart.getContentType();
+	            if (!contentType.startsWith("image/")) {
+				    request.setAttribute("error", "Il file deve essere un'immagine.");
+	            }
+
+	            String fileName = System.currentTimeMillis() + "_" + logoPart.getSubmittedFileName();
+
+	            String uploadPath = getServletContext().getRealPath("/uploads/logos");
+
+	            File dir = new java.io.File(uploadPath);
+	            if (!dir.exists()) dir.mkdirs();
+
+	            logoPart.write(uploadPath + java.io.File.separator + fileName);
+
+	            logoUrl = request.getContextPath() + "/uploads/logos/" + fileName;
+	        }
+
+	        pservice.requestPublisher(user.getId(), name, desc, logoUrl);
+	        
+	        response.sendRedirect("Account?section=publisher&status=success");
+
+	    } catch (SQLException e) {
+	    	if(e.getErrorCode() == 1062) {
+	    		request.setAttribute("error", "La richiesta è già stata mandata, per favore, attendi che un amministratore ti accetti.");
+	    		request.getRequestDispatcher("/WEB-INF/views/account_become_publisher.jsp")
+	    		       .forward(request, response);
+	    		return;
+	    	}
+	        response.sendRedirect(request.getContextPath() + "/Account?section=publisher");
+	    }
 	}
 
 	private void handleInfo(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
@@ -113,10 +172,12 @@ public class Account extends HttpServlet {
 		}
 		
 		try {
-		    ud.updateUser(updatedUser);
-		} catch (UserAlreadyExistsException e) {
-		    request.setAttribute("error", e.getMessage());
-		    request.getRequestDispatcher("/WEB-INF/views/account_info.jsp").forward(request, response);
+		    ud.update(updatedUser);
+		} catch (SQLException e) {
+			if(e.getErrorCode() == 1062) {
+			    request.setAttribute("error", "Le informazioni che hai tentato di modificare appartengono ad un altro utente.");
+			    request.getRequestDispatcher("/WEB-INF/views/account_info.jsp").forward(request, response);
+			}
 		    return;
 		} catch (Exception e) {
 		    request.setAttribute("error", "Something went wrong...");

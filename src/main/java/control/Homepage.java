@@ -5,9 +5,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-
 import java.io.IOException;
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
+
+import DAOs.VideogameDAO;
 
 @WebServlet("/Homepage")
 public class Homepage extends HttpServlet {
@@ -18,10 +21,15 @@ public class Homepage extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
+        DataSource ds = (DataSource) request.getServletContext().getAttribute("ds");
+        VideogameDAO videogames = new VideogameDAO(ds);
+        try {
+			request.setAttribute("games", videogames.findAll());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
-		request.getRequestDispatcher("WEB-INF/views/homepage.jsp")
-			.forward(request, response);
+		request.getRequestDispatcher("WEB-INF/views/homepage.jsp").forward(request, response);
 	}
 
 

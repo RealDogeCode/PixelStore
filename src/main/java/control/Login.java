@@ -6,11 +6,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import services.UserService;
+
 import java.io.IOException;
 
 import javax.sql.DataSource;
 
-import DAOs.UserDAO;
 import Models.User;
 
 @WebServlet("/Login")
@@ -33,8 +34,8 @@ public class Login extends HttpServlet {
 
 	    try {
 	        DataSource ds = (DataSource) request.getServletContext().getAttribute("ds");
-	        UserDAO ud = new UserDAO(ds);
-	        User user = ud.login(email, password);
+	        UserService us = new UserService(ds);
+	        User user = us.login(email, password);
 
 	        if(user == null) {
 	        	request.setAttribute("error", "Invalid Credentials...");

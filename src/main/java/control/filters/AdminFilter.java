@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebFilter("/publisher/*")
+@WebFilter("/Admin/*")
 public class AdminFilter implements Filter {
 
     public void doFilter(ServletRequest request,
@@ -26,11 +26,14 @@ public class AdminFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
 
         HttpSession session = req.getSession(false);
-        User user = (User) session.getAttribute("user");
-        if(session != null && user != null && user.getRoles().contains(Role.PUBLISHER)) {
+        if (session == null) {
+            res.sendRedirect(req.getContextPath() + "/Login");
+            return;
+        }        User user = (User) session.getAttribute("user");
+        if(session != null && user != null && user.getRoles().contains(Role.ADMIN)) {
             chain.doFilter(request, response);
         } else {
-            res.sendRedirect("Login");
+            res.sendRedirect(req.getContextPath() + "/Login");
         }
     }
 }

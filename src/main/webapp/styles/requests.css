@@ -1,0 +1,87 @@
+.requests-container {
+    padding: 30px;
+    font-family: Arial, sans-serif;
+    background: #f6f7fb;
+    min-height: 100vh;
+}
+
+.requests-header {
+    margin-bottom: 20px;
+}
+
+.requests-header h1 {
+    margin: 0;
+    font-size: 28px;
+    color: #1f2937;
+}
+
+.requests-header p {
+    margin-top: 5px;
+    color: #6b7280;
+}
+
+.requests-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.request-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.request-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.request-info h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #111827;
+}
+
+.request-info p {
+    margin: 3px 0;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.request-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn.approve {
+    background: #16a34a;
+    color: white;
+}
+
+.btn.approve:hover {
+    background: #15803d;
+}
+
+.btn.reject {
+    background: #dc2626;
+    color: white;
+}
+
+.btn.reject:hover {
+    background: #b91c1c;
+}
+
+.btn.details {
+    background: #2563eb;
+    color: white;
+}
+
+.btn.details:hover {
+    background: #1d4ed8;
+}

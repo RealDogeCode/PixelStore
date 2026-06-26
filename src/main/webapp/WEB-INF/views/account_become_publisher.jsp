@@ -4,38 +4,47 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Account</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/common.css">
 </head>
-	<body>
+	<body>	
 		<jsp:include page="/WEB-INF/components/navbar.jsp" />
 		
-			<div class="account-layout">
+			<%
+			String status = request.getParameter("status");
+			String error = (String) request.getAttribute("error");
+			
+			if (status != null || error != null) {
+			%>
+			    <jsp:include page="/WEB-INF/components/modal.jsp" />
+			<%
+			}
+			%>
+
+			<div class="layout">
 				<jsp:include page="/WEB-INF/components/account_navbar.jsp" />
 				
-				<div class="account-content">
-				<form method="POST" action=".">
-					<label for="name">Name:</label>
-					<input type="text" id="name" placeholder="Publisher Name">
-					
-					<label for="email">Email:</label>
-					<input type="email" id="email" placeholder="Publisher Email">
-					
-					<div class="radio-group">
-					    <label>
-					        <input type="radio" name="type" value="individual">
-					        Individual
+				<div class="content">
+				
+				<form method="POST" action="Account?section=publisher" enctype="multipart/form-data">
+				    <label for="name">Company Name:</label>
+				    <input type="text" name="name" id="name" required>
+				
+				    <label for="desc">Short Description:</label>
+				    <textarea id="desc" name="desc" rows="5" cols="20"></textarea>
+				
+					<label for="avatar-wrapper">Company Logo:</label>
+					<div class="avatar-layout">
+					    <label class="avatar-wrapper">
+					        <img class="avatar-upload" src="<%= request.getContextPath()  %>/images/avatars/default_profile_picture.jpg" alt="Avatar utente">
+					        <div class="avatar-overlay">Change Logo</div>
+					        <input type="file" name="logo" hidden>
 					    </label>
 					
-					    <label>
-					        <input type="radio" name="type" value="company">
-					        Company
-					    </label>
 					</div>
-					
-					<label for="desc">Short Description:</label>
-					<textarea id="desc" rows=5 cols="20" placeholder="Description of your game publisher"></textarea>
-					<input type="submit" value="Invia">
+				
+				    <input type="submit" value="Become Publisher">
 				</form>
 			</div>
 		</div>

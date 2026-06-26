@@ -1,0 +1,27 @@
+.btn {
+    padding: 0.7rem 1rem;
+    border-radius: 8px;
+    background: #2a2a4a;
+    color: white;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+}
+
+.tag {
+    padding: 4px 10px;
+    font-size: 12px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+}
+
+.alert {
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.alert-success { background: #dff0d8; }
+.alert-info { background: #d9edf7; }
+.alert-warning { background: #fcf8e3; }
+.alert-danger { background: #f2dede; }

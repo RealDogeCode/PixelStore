@@ -11,7 +11,9 @@
     if(!user.getRoles().contains(Role.PUBLISHER)) { 
     %>
     <li><a href="${pageContext.request.contextPath}/Account?section=publisher">Diventa Publisher</a></li>
-    <% } %>
+    <% 
+    } 
+    %>
     <li><a href="${pageContext.request.contextPath}/Logout">Logout</a></li>
 </ul>
 </nav>

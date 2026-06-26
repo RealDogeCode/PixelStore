@@ -6,14 +6,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.sql.SQLException;
+import services.UserService;
 
+import java.io.IOException;
 import javax.sql.DataSource;
-import DAOs.UserDAO;
-import Models.Role;
 
 @WebServlet("/Register")
 public class Register extends HttpServlet {
@@ -36,9 +32,9 @@ public class Register extends HttpServlet {
 
 	    try {
 	        DataSource ds = (DataSource) request.getServletContext().getAttribute("ds");
-	        UserDAO ud = new UserDAO(ds);
+	        UserService us = new UserService(ds);
 
-	        ud.register(username, email, password);
+	        us.register(username, email, password);
 
 	        response.sendRedirect(request.getContextPath() + "/Login");
 
