@@ -11,6 +11,12 @@ form label {
     color: #2a2a4a;
 }
 
+.form-title {
+	font-family: "Verdana", monospace;
+    align-self: center;
+    color: #2a2a4a;
+}
+
 form input[type="text"],
 form input[type="email"],
 form input[type="password"],
@@ -133,6 +139,16 @@ form input[type="submit"]:hover {
 .avatar-wrapper:hover .avatar-upload {
     filter: brightness(0.5);
     transform: scale(1.03);
+}
+
+.form-card {
+    display: flex;
+    justify-content: space-between;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .avatar-overlay {

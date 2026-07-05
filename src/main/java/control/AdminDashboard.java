@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import services.PublisherService;
+import services.UserService;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -23,7 +24,7 @@ public class AdminDashboard extends HttpServlet {
             throws ServletException, IOException {
 
         if (request.getSession().getAttribute("user") == null) {
-            response.sendRedirect(request.getContextPath() + "/Login");
+            response.sendRedirect("Login");
             return;
         }
 
@@ -37,22 +38,34 @@ public class AdminDashboard extends HttpServlet {
             throws ServletException, IOException {
 
         if (request.getSession().getAttribute("user") == null) {
-            response.sendRedirect(request.getContextPath() + "/Login");
+            response.sendRedirect("Login");
             return;
         }
 
         String action = request.getParameter("action");
-        int userId = Integer.parseInt(request.getParameter("userId"));
+        String userIdStr = request.getParameter("userId");
 
-        DataSource ds = (DataSource) request.getServletContext().getAttribute("ds");
+        if (action == null || userIdStr == null) {
+            response.sendRedirect(request.getContextPath() + "/Admin/Dashboard?section=application");
+            return;
+        }
+
+        int userId = Integer.parseInt(userIdStr);
+
+        DataSource ds = (DataSource) getServletContext().getAttribute("ds");
         PublisherService ps = new PublisherService(ds);
-
+        
         try {
-            if ("approve".equals(action)) {
-                ps.approve(userId);
-            } else if ("reject".equals(action)) {
-                ps.reject(userId);
+            switch (action) {
+                case "approve":
+                    ps.approve(userId);
+                    break;
+
+                case "reject":
+                    ps.reject(userId);
+                    break;
             }
+
         } catch (SQLException e) {
             throw new ServletException(e);
         }

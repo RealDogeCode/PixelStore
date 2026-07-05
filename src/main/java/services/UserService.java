@@ -67,6 +67,14 @@ public class UserService {
         return publisherDao.create(publisher);
     }
     
+    public void addRole(int userId, Role role) {
+    	try {
+			userDao.addRole(userId, role);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    }
+    
     public User login(String email, String password)
             throws SQLException, NoSuchAlgorithmException {
 

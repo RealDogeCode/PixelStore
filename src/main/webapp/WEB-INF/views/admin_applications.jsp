@@ -27,7 +27,7 @@
                 %>
                 <div class="request-card">
                     <div class="request-info">
-                    	<div class="nav-user"><img width="70" height="70" src="${request.getContextPath()}<%= p.getLogoUrl() %>"></img></div>
+                    	<div class="nav-user"><img width="70" height="70" src="<%= p.getLogoUrl() %>"></img></div>
                         <h3><%= p.getCompanyName() %></h3>
                         <p>Description: <%= p.getDescription() %></p>
                         <p>Requested: <%= p.getCreatedAt() %></p>

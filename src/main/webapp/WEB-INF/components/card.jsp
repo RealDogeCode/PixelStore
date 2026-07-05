@@ -31,6 +31,6 @@ Videogame game = (Videogame) request.getAttribute("game");
     </div>
     <div class="card_footer">
         <span class="price">€ <%= game.getPrice() %></span>
-        <a class="btn" href=".">Aggiungi al carrello</a>
+        <a class="btn" href="${pageContext.request.contextPath}/Cart?add_id=${game.id}">Aggiungi al carrello</a>
     </div>
 </div>

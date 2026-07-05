@@ -15,20 +15,10 @@ if (error != null) {
     return;
 }
 %>
-
+<script src="${pageContext.request.contextPath}/scripts/modal.js"></script>
 <div id="modal-overlay" class="modal-overlay <%= type %>">
     <div class="modal-box <%= type %>">
         <p><%= message %></p>
         <button onclick="closeModal()">OK</button>
     </div>
 </div>
-
-<script>
-function closeModal() {
-    document.getElementById("modal-overlay").style.display = "none";
-}
-
-window.onload = function () {
-    document.getElementById("modal-overlay").style.display = "flex";
-};
-</script>

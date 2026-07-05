@@ -2,6 +2,10 @@
   height: 420px;
   overflow-x: auto;
   overflow-y: hidden;
+  
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
 }
 
 .carousel::-webkit-scrollbar {
@@ -16,6 +20,10 @@
 .carousel-item {
   flex: 0 0 100%;
   height: 100%;
+  
+  
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 .slide {
@@ -47,7 +55,7 @@
 
   display: flex;
   flex-direction: column;
-  justify-content: center; /* importante per evitare effetto "piccolo" */
+  justify-content: center;
   gap: 6px;
 
   color: #fff;

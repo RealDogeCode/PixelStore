@@ -1,26 +1,22 @@
 package Models;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Videogame {
-
     private int id;
 
     private String title;
     private String description;
 
-    private String developer;
-
     private int publisherId;
     private String publisherName;
 
-    private BigDecimal price;
+    private double price;
 
     private String bannerUrl;
-    private String iconUrl;
 
     private Timestamp createdAt;
     private Timestamp updatedAt;
@@ -35,17 +31,15 @@ public class Videogame {
     }
 
     public Videogame(int id, String title, String description, String developer,
-                     int publisherId, BigDecimal price,
-                     String bannerUrl, String iconUrl,
+                     int publisherId, double price,
+                     String bannerUrl,
                      Timestamp createdAt, Timestamp updatedAt) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.developer = developer;
         this.publisherId = publisherId;
         this.price = price;
         this.bannerUrl = bannerUrl;
-        this.iconUrl = iconUrl;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -74,14 +68,6 @@ public class Videogame {
         this.description = description;
     }
 
-    public String getDeveloper() {
-        return developer;
-    }
-
-    public void setDeveloper(String developer) {
-        this.developer = developer;
-    }
-
     public int getPublisherId() {
         return publisherId;
     }
@@ -90,11 +76,11 @@ public class Videogame {
         this.publisherId = publisherId;
     }
 
-    public BigDecimal getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -104,14 +90,6 @@ public class Videogame {
 
     public void setBannerUrl(String bannerUrl) {
         this.bannerUrl = bannerUrl;
-    }
-
-    public String getIconUrl() {
-        return iconUrl;
-    }
-
-    public void setIconUrl(String iconUrl) {
-        this.iconUrl = iconUrl;
     }
 
     public Timestamp getCreatedAt() {
@@ -145,4 +123,18 @@ public class Videogame {
 	public String getPublisherName() {
 		return publisherName;
 	}
+	
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Videogame videogame = (Videogame) o;
+        return id == videogame.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

@@ -7,13 +7,17 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import DAOs.PublisherDAO;
+import DAOs.UserDAO;
 import Models.Publisher;
+import Models.Role;
 
 public class PublisherService {
 
     private final PublisherDAO dao;
+    private final DataSource ds;
 
     public PublisherService(DataSource ds) {
+    	this.ds = ds;
         this.dao = new PublisherDAO(ds);
     }
 
@@ -45,6 +49,9 @@ public class PublisherService {
             throw new IllegalStateException("Already processed");
         }
 
+        UserService us = new UserService(this.ds);
+        
+        us.addRole(userId, Role.PUBLISHER);
         p.setStatus("ACTIVE");
 
         return dao.update(p);

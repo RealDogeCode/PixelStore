@@ -22,7 +22,12 @@
 	List<Videogame> featured = List.of();
 	
 	if (games != null && !games.isEmpty()) {
-	    featured = new ArrayList<>(games.subList(0, Math.min(4, games.size())));
+		Random random = new Random();
+
+		List<Videogame> copy = new ArrayList<>(games);
+		Collections.shuffle(copy);
+
+		featured = new ArrayList<>(copy.subList(0, Math.min(4, copy.size())));
 	}
 %>
 
@@ -59,8 +64,8 @@
                         <p>
                             <%= game.getDescription() != null ? game.getDescription() : "No description available." %>
                         </p>
-                        <a href="game?id=<%= game.getId() %>" class="btn">
-                            € <%= game.getPrice() != null ? game.getPrice() : "0.00" %>
+                        <a href="${pageContext.request.contextPath}/Cart?add_id=<%= game.getId() %>" class="btn">
+                            € <%= game.getPrice() %>
                         </a>
                     </div>
                 </div>

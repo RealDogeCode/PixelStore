@@ -11,13 +11,11 @@
 @import url("responsive.css");
 @import url("alert.css");
 @import url("requests.css");
+@import url("cart.css");
+@import url("orders.css");
+@import url("discount.css");
 
 
-#login-title {
-	font-family: "Verdana", monospace;
-    align-self: center;
-    color: #2a2a4a;
-}
 
 .tag {
     width: fit-content;

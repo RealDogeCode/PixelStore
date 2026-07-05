@@ -193,6 +193,18 @@ public class UserDAO implements GenericDAO<User, Integer> {
         return users;
     }
 
+    public void addRole(int userId, Role role) throws SQLException {
+        String sql = "INSERT INTO user_roles (user_id, role_id) VALUES (?, ?)";
+
+        try (Connection conn = ds.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+            ps.setInt(2, role.getValue());
+
+            ps.executeUpdate();
+        }
+    }
 
     public List<Role> getRolesByUser(int userId) throws SQLException {
         String sql =

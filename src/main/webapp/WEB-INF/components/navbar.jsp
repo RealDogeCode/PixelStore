@@ -8,20 +8,21 @@
 	
 	String link = (user != null) ? "/Account?section=info" : "/Login";
 	String avatar = (user != null) ? user.getAvatarUrl() : "/images/avatars/default_profile_picture.jpg";
+	
+	String current = request.getRequestURI();
 	%>
 	<ul>
 		<li class="nav-logo"><a href="${pageContext.request.contextPath}/Homepage"><img src="${pageContext.request.contextPath}/images/logo.png" width="50" height="50"></img></a></li>
 		<li class="tabs">
 			<ul>
-				<li class="active"><a href="${pageContext.request.contextPath}/Homepage">Homepage</a></li>
-				<li><a href="${pageContext.request.contextPath}/Library">Libreria</a></li>
+				<li class="<%= current.contains("homepage") ? "active" : "" %>"><a href="${pageContext.request.contextPath}/Homepage">Homepage</a></li>
 				
 				<% if(user != null && user.getRoles().contains(Role.ADMIN)) { %>
-				<li><a href="${pageContext.request.contextPath}/Admin/Dashboard">Admin Dashboard</a></li>
+				<li class="<%= current.contains("admin") ? "active" : "" %>"><a href="${pageContext.request.contextPath}/Admin/Dashboard">Admin Dashboard</a></li>
 				<% } %>
 				
 				<% if(user != null && user.getRoles().contains(Role.PUBLISHER)) { %>
-				<li><a href="${pageContext.request.contextPath}/Publisher/Dashboard">Publisher Dashboard</a></li>
+				<li class="<%= current.contains("publisher") ? "active" : "" %>"><a href="${pageContext.request.contextPath}/Publisher/Dashboard">Publisher Dashboard</a></li>
 				<% } %>
 			</ul>
 		</li>

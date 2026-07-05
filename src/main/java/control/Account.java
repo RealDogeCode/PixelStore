@@ -15,12 +15,16 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.sql.DataSource;
 
+import DAOs.OrderDAO;
 import DAOs.PublisherDAO;
 import DAOs.UserDAO;
+import Models.Order;
 import Models.Publisher;
+import Models.Role;
 import Models.User;
 
 @WebServlet("/Account")
@@ -34,14 +38,13 @@ public class Account extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String section = request.getParameter("section");
-
-		if(request.getSession().getAttribute("user") == null) {
+		User user = (User) request.getSession().getAttribute("user");
+		if(user == null) {
 			response.sendRedirect("Login");
 			return;
 		}
 		
 		if (section == null) section = "info";
-
 		switch (section) {
 		    case "info":
 		        request.getRequestDispatcher("/WEB-INF/views/account_info.jsp").forward(request, response);
@@ -52,10 +55,24 @@ public class Account extends HttpServlet {
 		        break;
 
 		    case "orders":
+		    	DataSource ds = (DataSource) request.getServletContext().getAttribute("ds");
+		    	OrderDAO dao = new OrderDAO(ds);
+				List<Order> orders;
+				try {
+					orders = dao.findByUserId(user.getId());
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return;
+				}
+		    	request.setAttribute("orders", orders);
 		        request.getRequestDispatcher("/WEB-INF/views/account_my_orders.jsp").forward(request, response);
 		        break;
 
 		    case "publisher":
+		    	if(((User)request.getSession().getAttribute("user")).getRoles().contains(Role.PUBLISHER)) {
+			        request.getRequestDispatcher("/WEB-INF/views/account_info.jsp").forward(request, response);
+			        break;
+		    	}
 		        request.getRequestDispatcher("/WEB-INF/views/account_become_publisher.jsp").forward(request, response);
 		        break;
 		    default:
@@ -116,14 +133,14 @@ public class Account extends HttpServlet {
 
 	            String fileName = System.currentTimeMillis() + "_" + logoPart.getSubmittedFileName();
 
-	            String uploadPath = getServletContext().getRealPath("/uploads/logos");
+	            String uploadPath = getServletContext().getRealPath("/images/avatars");
 
 	            File dir = new java.io.File(uploadPath);
 	            if (!dir.exists()) dir.mkdirs();
 
 	            logoPart.write(uploadPath + java.io.File.separator + fileName);
 
-	            logoUrl = request.getContextPath() + "/uploads/logos/" + fileName;
+	            logoUrl = request.getContextPath() + "/images/avatars/" + fileName;
 	        }
 
 	        pservice.requestPublisher(user.getId(), name, desc, logoUrl);
