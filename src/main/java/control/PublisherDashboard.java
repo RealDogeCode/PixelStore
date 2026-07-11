@@ -7,6 +7,7 @@ import jakarta.servlet.http.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import DAOs.OrderDAO;
 import DAOs.VideogameDAO;
 import Models.*;
 
@@ -43,6 +45,7 @@ public class PublisherDashboard extends HttpServlet {
 
         DataSource ds = (DataSource) getServletContext().getAttribute("ds");
         VideogameDAO vd = new VideogameDAO(ds);
+        OrderDAO od = new OrderDAO(ds);
 
 		try {
 			request.setAttribute("tags", vd.findAllTags());
@@ -66,7 +69,30 @@ public class PublisherDashboard extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/views/publisher_modify_game.jsp")
                         .forward(request, response);
                 break;
+            case "orders_report":
+                String from = request.getParameter("from");
+                String to = request.getParameter("to");
 
+                if (from != null && to != null) {
+                    try {
+                        request.setAttribute(
+                            "report",
+                            od.getOrdersByCustomer(
+                            	user.getId(),
+                                Date.valueOf(from),
+                                Date.valueOf(to)
+                            )
+                        );
+
+                    } catch (SQLException e) {
+                        throw new ServletException(e);
+                    }
+                }
+
+                request.getRequestDispatcher("/WEB-INF/views/publisher_orders_report.jsp")
+                        .forward(request, response);
+
+                break;
             default:
                 request.getRequestDispatcher("/WEB-INF/views/publisher_add_game.jsp")
                         .forward(request, response);

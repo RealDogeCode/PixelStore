@@ -3,6 +3,7 @@ package DAOs;
 import Models.CartModel;
 import Models.Order;
 import Models.OrderItem;
+import Models.OrdersReport;
 import Models.Videogame;
 
 import javax.sql.DataSource;
@@ -171,6 +172,45 @@ public class OrderDAO implements GenericDAO<Order, Integer> {
         }
 
         return items;
+    }
+    
+    public List<OrdersReport> getOrdersByCustomer(int publisherId, Date from, Date to) throws SQLException {
+        List<OrdersReport> result = new ArrayList<>();
+
+        String sql = """
+            SELECT u.username,
+                   COUNT(DISTINCT o.id) AS total_orders
+            FROM orders o
+            JOIN users u ON o.user_id = u.id
+            JOIN order_items oi ON o.id = oi.order_id
+            JOIN videogames v ON oi.videogame_id = v.id
+            WHERE v.publisher_id = ?
+            AND DATE(o.created_at) BETWEEN ? AND ?
+            GROUP BY u.id, u.username
+            ORDER BY total_orders DESC
+        """;
+
+        try (Connection con = ds.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, publisherId);
+            ps.setDate(2, from);
+            ps.setDate(3, to);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                OrdersReport report = new OrdersReport();
+
+                report.setCustomerName(rs.getString("username"));
+                report.setTotalOrders(rs.getInt("total_orders"));
+
+                result.add(report);
+            }
+        }
+
+        return result;
     }
     
     public List<Order> findByUserId(int userId) throws SQLException {
