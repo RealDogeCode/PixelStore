@@ -151,6 +151,17 @@ form input[type="submit"]:hover {
     transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
+.auth-card {
+	width: 50%;
+    display: flex;
+    justify-content: space-between;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
 .avatar-overlay {
     position: absolute;
     inset: 0;
@@ -167,4 +178,59 @@ form input[type="submit"]:hover {
 
 .avatar-wrapper:hover .avatar-overlay {
     opacity: 1;
+}
+
+.file-uploader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.file-uploader input[type="file"] {
+    display: none;
+}
+
+.file-label {
+    padding: 10px 15px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.file-label:hover {
+    background-color: #ddd;
+}
+
+.file-error {
+    color: red;
+    font-size: 14px;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.checkbox-group label {
+    cursor: pointer;
+    font-size: 14px;
+}
+
+form input:user-invalid {
+    border-color: #dc2626;
+    background-color: #fff5f5;
+}
+
+form input:user-valid {
+    border-color: #d6d6e7;
+    background-color: #fff;
 }

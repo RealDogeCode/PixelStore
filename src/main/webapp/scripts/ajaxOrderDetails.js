@@ -1,5 +1,4 @@
 window.loadOrderDetails = function(orderId) {
-
     var box = document.getElementById("details-" + orderId);
     if (!box) return;
 
@@ -13,26 +12,24 @@ window.loadOrderDetails = function(orderId) {
     xhr.open("GET", "/PixelStore/OrderDetails?id=" + orderId, true);
 
     xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-                var data = JSON.parse(xhr.responseText);
-                var html = "";
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var data = JSON.parse(xhr.responseText);
+            var html = "";
 
-                if (!data || data.length === 0) {
-                    html = "Nessun dettaglio disponibile";
-                } else {
-                    for (var i = 0; i < data.length; i++) {
-                        html +=
-                            "<div class='order-item'>" +
-                            "<strong>" + data[i].title + "</strong><br>" +
-                            "€ " + data[i].price + " × " + data[i].quantity +
-                            "</div>";
-                    }
+            if (!data || data.length === 0) {
+                html = "Nessun dettaglio disponibile";
+            } else {
+                for (var i = 0; i < data.length; i++) {
+                    html +=
+                        "<div class='order-item'>" +
+                        "<strong>" + data[i].title + "</strong><br>" +
+                        "€ " + data[i].price + " × " + data[i].quantity +
+                        "</div>";
                 }
-
-                box.innerHTML = html;
-                box.style.display = "block";
             }
+
+            box.innerHTML = html;
+            box.style.display = "block";
         }
     };
 

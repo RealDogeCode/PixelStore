@@ -4,7 +4,6 @@
 <nav class="sidebar">
 <ul>
     <li><a href="${pageContext.request.contextPath}/Account?section=info">Account Information</a></li>
-    <li><a href="${pageContext.request.contextPath}/Account?section=payment">Payment Method</a></li>
     <li><a href="${pageContext.request.contextPath}/Account?section=orders">I miei ordini</a></li>
     <%
     User user = (User) session.getAttribute("user");

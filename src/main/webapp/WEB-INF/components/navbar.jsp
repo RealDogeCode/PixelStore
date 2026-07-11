@@ -26,7 +26,17 @@
 				<% } %>
 			</ul>
 		</li>
-		<li class="nav-center nav-search"><input type="text" placeholder="Esplora il catalogo..."></li>
+		<li class="nav-center nav-search">
+			<form method="GET" action="${pageContext.request.contextPath}/Search">
+			    <input 
+			        type="text"
+			        name="q"
+			        id="searchInput"
+			        placeholder="Cerca giochi..."
+			        oninput="ajaxSearch(this.value)"
+			        required>
+			</form>
+		</li>
 		<li class="nav-cart"><a href="${pageContext.request.contextPath}/Cart"><img src="${pageContext.request.contextPath}/images/cart.png"  width="50" height="50"></a></li>
 		<li class="nav-user">${user.username}<a href="<%= ctx + link %>"><img src="<%= ctx + avatar %>" width="50" height="50"></a></li>
 	</ul>

@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Admin Dashboard</title>
+<title>PixelStore | Admin - Applications</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/common.css">
 </head>
 <body>
@@ -45,8 +45,12 @@
                 </div>
                 <%
                         }
-                    }
+                    } 
+
+                    if(applications.isEmpty()){
                 %>
+	                <div class="alert alert-info">Nessuna richiesta da controllare.</div>
+                <% } %>
             </div>
         </div>
     </div>

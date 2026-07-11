@@ -1,5 +1,6 @@
 package DAOs;
 
+import Models.CartModel;
 import Models.Order;
 import Models.OrderItem;
 import Models.Videogame;
@@ -113,8 +114,7 @@ public class OrderDAO implements GenericDAO<Order, Integer> {
         return list;
     }
 
-    public void insertOrderItems(int orderId, List<Videogame> cartItems) throws SQLException {
-
+    public void insertOrderItems(int orderId, CartModel cart) throws SQLException {
         String sql = """
             INSERT INTO order_items 
             (order_id, videogame_id, title, publisher, price, quantity)
@@ -124,13 +124,16 @@ public class OrderDAO implements GenericDAO<Order, Integer> {
         try (Connection con = ds.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
-            for (Videogame v : cartItems) {
+            for (Videogame v : cart.getItems()) {
+
+                int quantity = cart.getQuantity(v.getId());
+
                 ps.setInt(1, orderId);
                 ps.setInt(2, v.getId());
                 ps.setString(3, v.getTitle());
                 ps.setString(4, v.getPublisherName());
-                ps.setDouble(5, v.getPrice());
-                ps.setInt(6, 1);
+                ps.setDouble(5, v.getDiscountedPrice());
+                ps.setInt(6, quantity);
 
                 ps.addBatch();
             }

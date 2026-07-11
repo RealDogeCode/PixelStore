@@ -180,6 +180,7 @@ public class PublisherDashboard extends HttpServlet {
         String title = request.getParameter("title");
         String description = request.getParameter("description");
         double price = Double.parseDouble(request.getParameter("price"));
+        int discount = Integer.parseInt(request.getParameter("discountPercentage"));
 
         String[] tagIds = request.getParameterValues("tagIds");
 
@@ -196,6 +197,7 @@ public class PublisherDashboard extends HttpServlet {
         vg.setTitle(title);
         vg.setDescription(description);
         vg.setPrice(price);
+        vg.setDiscountPercentage(discount);
 
         Part coverPart = request.getPart("cover");
 

@@ -30,13 +30,15 @@ public class Cart extends HttpServlet {
         HttpSession session = request.getSession();
 
         CartModel cart = (CartModel) session.getAttribute("cart");
+
         if (cart == null) {
             cart = new CartModel();
             session.setAttribute("cart", cart);
         }
 
         String addIdParam = request.getParameter("add_id");
-        String removeIdParam = request.getParameter("remove_id");
+        String increaseIdParam = request.getParameter("increase_id");
+        String decreaseIdParam = request.getParameter("decrease_id");
 
         DataSource ds = (DataSource) request.getServletContext().getAttribute("ds");
         VideogameDAO dao = new VideogameDAO(ds);
@@ -44,24 +46,37 @@ public class Cart extends HttpServlet {
         try {
 
             if (addIdParam != null) {
+
                 int id = Integer.parseInt(addIdParam);
 
                 Videogame game = dao.findById(id);
                 cart.addItem(game);
             }
 
-            if (removeIdParam != null) {
-                int id = Integer.parseInt(removeIdParam);
+            if (increaseIdParam != null) {
 
-                cart.removeItem(id);
+                int id = Integer.parseInt(increaseIdParam);
+
+                cart.updateQuantity(
+                    id,
+                    cart.getQuantity(id) + 1
+                );
             }
 
+            if (decreaseIdParam != null) {
+
+                int id = Integer.parseInt(decreaseIdParam);
+
+                cart.updateQuantity(
+                    id,
+                    cart.getQuantity(id) - 1
+                );
+            }
         } catch (NumberFormatException e) {
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        request.setAttribute("cart", cart.getItems());
 
         request.getRequestDispatcher("/WEB-INF/views/cart.jsp")
                .forward(request, response);

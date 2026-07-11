@@ -10,6 +10,8 @@ public class Videogame {
 
     private String title;
     private String description;
+    
+    private int discountPercentage;
 
     private int publisherId;
     private String publisherName;
@@ -80,6 +82,11 @@ public class Videogame {
         return price;
     }
 
+    public double getDiscountedPrice() {
+        double discounted = price - (price * discountPercentage / 100.0);
+        return Math.round(discounted * 100.0) / 100.0;
+    }
+    
     public void setPrice(double price) {
         this.price = price;
     }
@@ -137,4 +144,13 @@ public class Videogame {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+	public void setDiscountPercentage(int int1) {
+		discountPercentage = int1;
+		
+	}
+
+	public int getDiscountPercentage() {
+		return discountPercentage;
+	}
 }

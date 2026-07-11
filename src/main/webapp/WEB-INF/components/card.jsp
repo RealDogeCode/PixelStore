@@ -30,7 +30,23 @@ Videogame game = (Videogame) request.getAttribute("game");
         </div>
     </div>
     <div class="card_footer">
-        <span class="price">€ <%= game.getPrice() %></span>
+    	<span class="price">
+		<%
+		    if (game.getDiscountPercentage() > 0) {
+		%>
+		    <del>€ <%= game.getPrice() %></del>
+		    € <%= String.format("%.2f", game.getDiscountedPrice()) %>
+		
+		<%
+		    } else {
+		%>
+		
+		    € <%= game.getPrice() %>
+		
+		<%
+		    }
+		%>
+		</span>
         <a class="btn" href="${pageContext.request.contextPath}/Cart?add_id=${game.id}">Aggiungi al carrello</a>
     </div>
 </div>

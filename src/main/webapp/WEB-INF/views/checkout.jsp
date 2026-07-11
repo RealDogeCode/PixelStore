@@ -9,9 +9,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Checkout</title>
+    <title>PixelStore | Checkout</title>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/common.css">
+    <script src="${pageContext.request.contextPath}/scripts/validation.js"></script>
 </head>
 
 <body>
@@ -20,49 +21,79 @@
 
 <%
     CartModel cartObj = (CartModel) session.getAttribute("cart");
-    List<Videogame> cart = (cartObj != null) ? cartObj.getItems() : new ArrayList<>();
-
-    double total = (cartObj != null) ? cartObj.getTotal() : 0;
 %>
 
 <div class="padded">
-    <h1 style="margin-bottom: 1rem; color:#2a2a4a;">Checkout</h1>
+    <h1>Checkout</h1>
 
+	<div class="eqdivided">
     <ul class="list" style="margin-bottom: 2rem;">
         <%
-            for (Videogame game : cart) {
+            for (Videogame game : cartObj.getItems()) {
         %>
         <li>
-            <span><%= game.getTitle() %></span>
-            <span>€ <%= game.getPrice() %></span>
+            <span><%= game.getTitle() %> ✖ <%= cartObj.getQuantity(game.getId()) %></span>
+            <span>€ <%= game.getDiscountedPrice() %></span>
         </li>
         <%
             }
         %>
     </ul>
 
-    <div style="margin-bottom: 2rem; font-size: 1.2rem; font-weight: 600; color:#2a2a4a;">
-        Totale: € <%= String.format("%.2f", total) %>
-    </div>
+	<footer class="cart-footer">
+	    <div class="cart-total">
+	        Totale:
+	        € <%= cartObj.getTotal() %>
+	    </div>
+	</footer>
 
-    <form method="post" action="Checkout">
-        <label>Nome intestatario</label>
-        <input type="text" name="cardName" required>
-
-        <label>Numero carta</label>
-        <input type="text" name="cardNumber" required maxlength="16">
-
-        <label>Scadenza</label>
-        <input type="text" name="expiry" placeholder="MM/YY" required>
-
-        <label>CVV</label>
-        <input type="password" name="cvv" required maxlength="3">
-
-        <input type="hidden" name="total" value="<%= total %>">
-
-        <input type="submit" class="btn" value="Conferma pagamento">
-
-    </form>
+<form method="post"
+      action="Checkout"
+      class="form-card"
+      onsubmit="return this.reportValidity();">
+    <label>Nome intestatario</label>
+    <input type="text"
+           name="cardName"
+           required
+           minlength="3"
+           maxlength="50"
+           onchange="validateFormElem(this, document.getElementById('cardNameError'))">
+    <span id="cardNameError"></span>
+    <label>Numero carta</label>
+    <input type="text"
+           name="cardNumber"
+           required
+           minlength="16"
+           maxlength="16"
+           pattern="[0-9]{16}"
+           inputmode="numeric"
+           onchange="validateFormElem(this, document.getElementById('cardNumberError'))">
+    <span id="cardNumberError"></span>
+    <label>Scadenza</label>
+    <input type="text"
+           name="expiry"
+           placeholder="MM/YY"
+           required
+           pattern="(0[1-9]|1[0-2])\/[0-9]{2}"
+           onchange="validateFormElem(this, document.getElementById('expiryError'))">
+    <span id="expiryError"></span>
+    <label>CVV</label>
+    <input type="password"
+           name="cvv"
+           required
+           minlength="3"
+           maxlength="3"
+           pattern="[0-9]{3}"
+           inputmode="numeric"
+           onchange="validateFormElem(this, document.getElementById('cvvError'))">
+    <span id="cvvError"></span>
+    <input type="hidden"
+           name="total"
+           value="<%= cartObj.getTotal() %>">
+    <input type="submit"
+           class="btn"
+           value="Conferma pagamento">
+</form>
 </div>
 
 </body>

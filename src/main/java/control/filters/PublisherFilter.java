@@ -20,11 +20,7 @@ import jakarta.servlet.http.HttpSession;
 @WebFilter("/Publisher/*")
 public class PublisherFilter implements Filter {
 
-    public void doFilter(ServletRequest request,
-                         ServletResponse response,
-                         FilterChain chain)
-            throws IOException, ServletException {
-
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
 

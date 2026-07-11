@@ -38,7 +38,7 @@ public class Checkout extends HttpServlet {
 
 	    if (cart == null || cart.isEmpty()) {
 	    	request.setAttribute("status", "error");
-        	request.setAttribute("error", "Cart is empty bro...");
+        	request.setAttribute("error", "What are you trying to do with an empty cart? You can't pay €0...");
 	        request.getRequestDispatcher("/WEB-INF/views/cart.jsp")
 	    	.forward(request, response);
 	        return;
@@ -64,7 +64,7 @@ public class Checkout extends HttpServlet {
 	        order.setTotal(cart.getTotal());
 
 	        orderDAO.create(order);
-	        orderDAO.insertOrderItems(order.getId(), cart.getItems());
+	        orderDAO.insertOrderItems(order.getId(), cart);
 	        cart.getItems().clear();
 
 	        session.setAttribute("cart", cart);

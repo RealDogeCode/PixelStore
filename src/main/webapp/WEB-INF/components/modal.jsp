@@ -19,6 +19,6 @@ if (error != null) {
 <div id="modal-overlay" class="modal-overlay <%= type %>">
     <div class="modal-box <%= type %>">
         <p><%= message %></p>
-        <button onclick="closeModal()">OK</button>
+        <button class="btn" onclick="closeModal()">OK</button>
     </div>
 </div>

@@ -13,9 +13,6 @@
 @import url("requests.css");
 @import url("cart.css");
 @import url("orders.css");
-@import url("discount.css");
-
-
 
 .tag {
     width: fit-content;
@@ -27,3 +24,84 @@
     backdrop-filter: blur(6px);
 }
 
+.publisher {
+    font-size: 0.85rem;
+    opacity: 0.75;
+}
+
+.price {
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.price del {
+    color: gray;
+    margin-right: 0;
+    order: 2;
+}
+
+.price span {
+    order: 1;
+}
+
+.eqdivided {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+}
+
+.eqdivided {
+    display: flex;
+    width: 100%;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.eqdivided > * {
+    flex: 1;
+    min-width: 0;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.quantity-btn {
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    text-decoration: none;
+
+    font-size: 20px;
+    font-weight: bold;
+
+    background-color: #2a2a4a;
+    color: white;
+
+    transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.quantity-btn:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
+}
+
+.quantity-value {
+    min-width: 35px;
+
+    text-align: center;
+
+    font-size: 18px;
+    font-weight: bold;
+}

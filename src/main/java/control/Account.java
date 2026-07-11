@@ -49,11 +49,6 @@ public class Account extends HttpServlet {
 		    case "info":
 		        request.getRequestDispatcher("/WEB-INF/views/account_info.jsp").forward(request, response);
 		        break;
-
-		    case "payment":
-		        request.getRequestDispatcher("/WEB-INF/views/account_payment_method.jsp").forward(request, response);
-		        break;
-
 		    case "orders":
 		    	DataSource ds = (DataSource) request.getServletContext().getAttribute("ds");
 		    	OrderDAO dao = new OrderDAO(ds);

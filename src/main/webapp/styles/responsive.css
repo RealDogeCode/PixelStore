@@ -1,5 +1,18 @@
 /* Mobile (480px - 768px) */
 @media (max-width: 768px) {
+	.checkout-grid {
+        grid-template-columns: 1fr;
+    }
+	
+	.grid {
+		margin-top: 5px;
+		padding: 2px;
+	}
+
+	.auth-card {
+		width: 100%;
+	}
+	
 	.hnav {
         height: auto;
     }

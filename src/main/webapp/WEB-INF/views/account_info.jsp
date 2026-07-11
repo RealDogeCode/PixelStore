@@ -7,8 +7,9 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>Account</title>
+	<title>PixelStore | Account - Info</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/common.css">
+	<script src="${pageContext.request.contextPath}/scripts/validation.js"></script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/components/navbar.jsp" />
@@ -16,19 +17,29 @@
 <div class="layout">
 <jsp:include page="/WEB-INF/components/account_navbar.jsp" />
 	<div class="content">
-	    <form action="Account" method="POST" enctype="multipart/form-data">
-	        <label for="username">Username</label>
-	        <input type="text"
-	               id="username"
-	               placeholder="username"
-	               value="${user.username}"
-	               name="username">
-	        <label for="email">Email</label>
-	        <input type="email"
-	               id="email"
-	               placeholder="example@example.com"
-	               value="${user.email}"
-	               name="email">
+	    <form action="Account" class="form-card" method="POST" enctype="multipart/form-data" onsubmit="return this.reportValidity()">
+		    <label for="username">Username</label>
+		    <input type="text"
+		           id="username"
+		           placeholder="username"
+		           value="${user.username}"
+		           name="username"
+		           required
+		           minlength="3"
+		           maxlength="20"
+		           onchange="validateFormElem(this, document.getElementById('usernameError'))">
+		    <div id="usernameError"></div>
+		
+		
+		    <label for="email">Email</label>
+		    <input type="email"
+		           id="email"
+		           placeholder="example@example.com"
+		           value="${user.email}"
+		           name="email"
+		           required
+		           onchange="validateFormElem(this, document.getElementById('emailError'))">
+		    <div id="emailError"></div>
 	        <%
 	            User user = (User) session.getAttribute("user");
 	            String ctx = request.getContextPath();

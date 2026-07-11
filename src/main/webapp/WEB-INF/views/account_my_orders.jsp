@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Account - Ordini</title>
+    <title>PixelStore | Account - Ordini</title>
 
     <script src="${pageContext.request.contextPath}/scripts/ajaxOrderDetails.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/common.css">
@@ -40,7 +40,7 @@
                 <div class="order-header">
                     <div class="order-info">
                         <strong>Ordine #<%= o.getId() %></strong><br>
-                        Totale: € <%= String.format("%.2f", o.getTotal()) %><br>
+                        Totale: € <%= o.getTotal() %><br>
                         Data: <%= o.getCreatedAt() %>
                     </div>
                     <button class="btn"

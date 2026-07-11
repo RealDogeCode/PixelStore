@@ -2,13 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
 <%@ page import="Models.Videogame" %>
+<%@ page import="Models.CartModel" %>
+
 
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Carrello</title>
+    <title>PixelStore | Cart</title>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/common.css">
 </head>
@@ -23,68 +25,95 @@ String error = (String) request.getAttribute("error");
 
 if (status != null || error != null) {
 %>
-    <jsp:include page="/WEB-INF/components/modal.jsp" />
+    <jsp:include page="/WEB-INF/components/modal.jsp"/>
 <%
 }
+
+CartModel cart = (CartModel) session.getAttribute("cart");
 %>
 
-<%
-    List<Videogame> cart = (List<Videogame>) request.getAttribute("cart");
+<div class="cart-page">
+    <div class="content">
+        <h1>Il tuo carrello</h1>
 
-    double total = 0;
-    if (cart != null) {
-        for (Videogame g : cart) {
-            total += g.getPrice();
-        }
-    }
-%>
-
-<div class="padded">
-    <h1 style="margin-bottom: 1rem; color:#2a2a4a;">Il tuo carrello</h1>
-    <%
+        <%
         if (cart == null || cart.isEmpty()) {
-    %>
-        <div class="alert alert-info">
-            <p>Il carrello è vuoto.</p>
-        </div>
-    <%
-        } else {
-    %>
-
-    <ul class="list">
-        <%
-            for (Videogame game : cart) {
         %>
-        <li>
-            <div style="display:flex; flex-direction:column; gap:4px;">
-                <strong><%= game.getTitle() %></strong>
-
-                <span style="font-size:0.85rem; color:#6b7280;">
-                    <%= game.getPublisherName() %>
-                </span>
-
-                <span style="font-size:0.85rem;">
-                    € <%= game.getPrice() %>
-                </span>
+            <div class="alert alert-info">
+                <p>Il carrello è vuoto.</p>
             </div>
-			<a href="Cart?remove_id=<%= game.getId() %>" class="btn">Rimuovi</a>
-        </li>
         <%
-            }
+        } else {
         %>
-    </ul>
-    <%
-        }
-    %>
-    <div style="margin-top: 2rem; display:flex; justify-content:space-between; align-items:center;">
-        <div style="font-size: 1.2rem; font-weight: 600; color:#2a2a4a;">
-            Totale: € <%= String.format("%.2f", total) %>
-        </div>
+            <ul class="list">
+            <%
+            for (Videogame game : cart.getItems()) {
+            %>
+                <li class="cart-item">
+                    <div class="cart-info">
+                        <strong class="cart-title">
+                            <%= game.getTitle() %>
+                        </strong>
 
-		<a href="Checkout" class="btn">Procedi con il pagamento.</a>
+                        <span class="cart-publisher">
+                            <%= game.getPublisherName() %>
+                        </span>
+
+                        <span class="price">
+                        <%
+                        if (game.getDiscountPercentage() > 0) {
+                        %>
+                            <del>
+                                € <%= game.getPrice() %>
+                            </del>
+                            € <%= game.getDiscountedPrice() %>
+                        <%
+                        } else {
+                        %>
+                            € <%= game.getPrice() %>
+                        <%
+                        }
+                        %>
+                        </span>
+                    </div>
+
+					<div class="quantity-control">
+					
+					    <a href="Cart?decrease_id=<%= game.getId() %>" class="quantity-btn">
+					        −
+					    </a>
+					
+					    <span class="quantity-value">
+					        <%= cart.getQuantity(game.getId()) %>
+					    </span>
+					
+					    <a href="Cart?increase_id=<%= game.getId() %>" class="quantity-btn">
+					        +
+					    </a>
+					
+					</div>
+                </li>
+            <%
+            }
+            %>
+            </ul>
+        <%
+        }
+        %>
+    </div>
+</div>
+
+
+<footer class="cart-footer">
+    <div class="cart-total">
+        Totale:
+        € <%= String.format("%.2f", cart.getTotal()) %>
     </div>
 
-</div>
+    <a href="Checkout" class="btn">
+        Procedi con il pagamento
+    </a>
+</footer>
 
 </body>
 </html>

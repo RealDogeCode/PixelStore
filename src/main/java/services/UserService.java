@@ -91,4 +91,19 @@ public class UserService {
 
         return user;
     }
+    
+    public User login(int userId) throws SQLException {
+        User user = userDao.findById(userId);
+
+        if (user == null) {
+            return null;
+        }
+
+        user.setRoles(userDao.getRolesByUser(user.getId()));
+
+        user.setLastLogin(new Timestamp(System.currentTimeMillis()));
+        userDao.updateLastLogin(user.getId(), user.getLastLogin());
+
+        return user;
+    }
 }

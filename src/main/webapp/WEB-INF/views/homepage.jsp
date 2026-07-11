@@ -10,13 +10,12 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>Homepage</title>
+	<title>PixelStore | Homepage</title>
 	<script src="${pageContext.request.contextPath}/scripts/carousel.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/common.css">
 </head>
 <body>
 <jsp:include page="/WEB-INF/components/navbar.jsp" />
-
 <%
 	List<Videogame> games = (List<Videogame>) request.getAttribute("games");
 	List<Videogame> featured = List.of();
@@ -65,7 +64,23 @@
                             <%= game.getDescription() != null ? game.getDescription() : "No description available." %>
                         </p>
                         <a href="${pageContext.request.contextPath}/Cart?add_id=<%= game.getId() %>" class="btn">
-                            € <%= game.getPrice() %>
+                        	<span class="price">
+                            <%
+							    if (game.getDiscountPercentage() > 0) {
+							%>
+							    <del>€ <%= game.getPrice() %></del>
+							    € <%= String.format("%.2f", game.getDiscountedPrice()) %>
+							
+							<%
+							    } else {
+							%>
+							
+							    € <%= game.getPrice() %>
+							
+							<%
+							    }
+							%>
+							</span>
                         </a>
                     </div>
                 </div>
