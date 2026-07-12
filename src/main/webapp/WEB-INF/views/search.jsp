@@ -10,7 +10,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>PixelStore | Homepage</title>
+	<title>PixelStore | Search</title>
 	<script src="${pageContext.request.contextPath}/scripts/carousel.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/common.css">
 	<script src="${pageContext.request.contextPath}/scripts/ajaxSearch.js"></script>

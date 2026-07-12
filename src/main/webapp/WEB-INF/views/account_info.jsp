@@ -13,7 +13,16 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/components/navbar.jsp" />
+<%
+String s = request.getParameter("status");
+String e = (String) request.getAttribute("error");
 
+if (s != null || e != null) {
+%>
+    <jsp:include page="/WEB-INF/components/modal.jsp" />
+<%
+}
+%>
 <div class="layout">
 <jsp:include page="/WEB-INF/components/account_navbar.jsp" />
 	<div class="content">

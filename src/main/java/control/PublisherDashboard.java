@@ -41,7 +41,6 @@ public class PublisherDashboard extends HttpServlet {
         }
 
         String section = request.getParameter("section");
-        if (section == null) section = "dashboard";
 
         DataSource ds = (DataSource) getServletContext().getAttribute("ds");
         VideogameDAO vd = new VideogameDAO(ds);

@@ -198,6 +198,6 @@ public class Account extends HttpServlet {
 		}
 		
 		session.setAttribute("user", updatedUser);
-		response.sendRedirect(request.getContextPath() + "/Account?section=info&success=1");
+		response.sendRedirect(request.getContextPath() + "/Account?section=info&status=success");
 	}
 }
