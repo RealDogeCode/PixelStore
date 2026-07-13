@@ -76,7 +76,7 @@
 			      method="post"
 			      action="<%= request.getContextPath() %>/Publisher/Dashboard?section=modify_game"
 			      enctype="multipart/form-data"
-			      onsubmit="return this.reportValidity();">
+			      onsubmit="return this.reportValidity(this);">
 			
 			    <input type="hidden"
 			           name="gameId"

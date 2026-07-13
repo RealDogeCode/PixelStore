@@ -227,10 +227,4 @@ form input[type="submit"]:hover {
 
 form input:user-invalid {
     border-color: #dc2626;
-    background-color: #fff5f5;
-}
-
-form input:user-valid {
-    border-color: #d6d6e7;
-    background-color: #fff;
 }

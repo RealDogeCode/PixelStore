@@ -26,7 +26,7 @@ if (s != null || e != null) {
 <div class="layout">
 <jsp:include page="/WEB-INF/components/account_navbar.jsp" />
 	<div class="content">
-	    <form action="Account" class="form-card" method="POST" enctype="multipart/form-data" onsubmit="return this.reportValidity()">
+	    <form action="Account" class="form-card" method="POST" enctype="multipart/form-data" onsubmit="return validateForm(this)" novalidate>
 		    <label for="username">Username</label>
 		    <input type="text"
 		           id="username"

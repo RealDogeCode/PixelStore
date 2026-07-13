@@ -13,7 +13,7 @@
 <jsp:include page="/WEB-INF/components/navbar.jsp" />
 
 <div class="centered">
-    <form class="auth-card" action="Login" method="POST">
+    <form class="auth-card" action="Login" method="POST" onsubmit="return validateForm(this)" novalidate>
         <h1 class="title">Accedi</h1>
 
         <label for="email">Email</label>
@@ -35,6 +35,8 @@
             required
             minlength="5"
             onchange="validateFormElem(this, document.getElementById('passwordError'))">
+            
+        <span id="passwordError"></span>
 		<div class="checkbox-group">
 		    <input type="checkbox"
 		           id="keeplogged"
@@ -45,7 +47,6 @@
 		        Rimani autenticato (30 Giorni)
 		    </label>
 		</div>
-        <span id="passwordError"></span>
 
         <%
         String error = (String) request.getAttribute("error");

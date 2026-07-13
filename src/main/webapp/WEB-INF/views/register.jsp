@@ -15,7 +15,8 @@
 	<form class="auth-card"
 	      action="Register"
 	      method="POST"
-	      onsubmit="return this.reportValidity();">
+	      onsubmit="return validateForm(this);"
+	      novalidate>
 	
 	    <h1 id="form-title">Registrati</h1>
 	

@@ -30,7 +30,8 @@
 				      class="form-card"
 				      action="Account?section=publisher"
 				      enctype="multipart/form-data"
-				      onsubmit="return this.reportValidity();">
+				      onsubmit="return validateForm(this);" 
+				      novalidate>
 				
 				    <label for="name">Company Name:</label>
 				    <input type="text"

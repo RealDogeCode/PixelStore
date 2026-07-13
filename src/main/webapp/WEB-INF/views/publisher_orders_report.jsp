@@ -26,7 +26,7 @@
             <h1>Orders Report</h1>
             <p>Visualizza il numero di ordini effettuati da ogni cliente in un intervallo di date.</p>
 
-			<form class="report-form" method="get" action="<%= request.getContextPath() %>/Publisher/Dashboard" onsubmit="return this.reportValidity();">
+			<form class="report-form" method="get" action="<%= request.getContextPath() %>/Publisher/Dashboard" onsubmit="return validateForm(this);" novalidate>
 			    <input type="hidden" name="section" value="orders_report">
 			
 			    <label>Data iniziale</label>

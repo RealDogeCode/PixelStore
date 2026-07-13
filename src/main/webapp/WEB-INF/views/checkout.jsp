@@ -50,10 +50,12 @@
 <form method="post"
       action="Checkout"
       class="form-card"
-      onsubmit="return this.reportValidity();">
+      onsubmit="return validateForm(this);"
+      novalidate>
     <label>Nome intestatario</label>
     <input type="text"
            name="cardName"
+           id="cardName"
            required
            minlength="3"
            maxlength="50"
@@ -62,6 +64,7 @@
     <label>Numero carta</label>
     <input type="text"
            name="cardNumber"
+           id="cardNumber"
            required
            minlength="16"
            maxlength="16"
@@ -72,6 +75,7 @@
     <label>Scadenza</label>
     <input type="text"
            name="expiry"
+           id="expiry"
            placeholder="MM/YY"
            required
            pattern="(0[1-9]|1[0-2])\/[0-9]{2}"
@@ -80,6 +84,7 @@
     <label>CVV</label>
     <input type="password"
            name="cvv"
+           id="cvv"
            required
            minlength="3"
            maxlength="3"
